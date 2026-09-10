@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CounterfactualRouteImport } from './routes/counterfactual'
 import { Route as GameStateRouteImport } from './routes/game-state'
 import { Route as MatchExplorerRouteImport } from './routes/match-explorer'
 import { Route as PossessionRouteImport } from './routes/possession'
+import { Route as TacticalRouteImport } from './routes/tactical'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CounterfactualRoute = CounterfactualRouteImport.update({
+  id: '/counterfactual',
+  path: '/counterfactual',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GameStateRoute = GameStateRouteImport.update({
@@ -34,39 +41,71 @@ const PossessionRoute = PossessionRouteImport.update({
   path: '/possession',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TacticalRoute = TacticalRouteImport.update({
+  id: '/tactical',
+  path: '/tactical',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/possession': typeof PossessionRoute
+  '/tactical': typeof TacticalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/possession': typeof PossessionRoute
+  '/tactical': typeof TacticalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/possession': typeof PossessionRoute
+  '/tactical': typeof TacticalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/game-state' | '/match-explorer' | '/possession'
+  fullPaths:
+    | '/'
+    | '/counterfactual'
+    | '/game-state'
+    | '/match-explorer'
+    | '/possession'
+    | '/tactical'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/game-state' | '/match-explorer' | '/possession'
-  id: '__root__' | '/' | '/game-state' | '/match-explorer' | '/possession'
+  to:
+    | '/'
+    | '/counterfactual'
+    | '/game-state'
+    | '/match-explorer'
+    | '/possession'
+    | '/tactical'
+  id:
+    | '__root__'
+    | '/'
+    | '/counterfactual'
+    | '/game-state'
+    | '/match-explorer'
+    | '/possession'
+    | '/tactical'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CounterfactualRoute: typeof CounterfactualRoute
   GameStateRoute: typeof GameStateRoute
   MatchExplorerRoute: typeof MatchExplorerRoute
   PossessionRoute: typeof PossessionRoute
+  TacticalRoute: typeof TacticalRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/counterfactual': {
+      id: '/counterfactual'
+      path: '/counterfactual'
+      fullPath: '/counterfactual'
+      preLoaderRoute: typeof CounterfactualRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/game-state': {
@@ -99,14 +145,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PossessionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tactical': {
+      id: '/tactical'
+      path: '/tactical'
+      fullPath: '/tactical'
+      preLoaderRoute: typeof TacticalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CounterfactualRoute: CounterfactualRoute,
   GameStateRoute: GameStateRoute,
   MatchExplorerRoute: MatchExplorerRoute,
   PossessionRoute: PossessionRoute,
+  TacticalRoute: TacticalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
