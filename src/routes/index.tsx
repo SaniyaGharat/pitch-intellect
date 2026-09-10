@@ -1,24 +1,110 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Metric, Panel, PageHeader } from "@/components/Panel";
+import { Pitch, PitchLegend } from "@/components/Pitch";
+import { buildFrame, EXPERIMENTS, PIPELINE } from "@/lib/data";
+import { useSession } from "@/lib/session";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Overview — Ball-Free Game State Reconstruction" },
+      {
+        name: "description",
+        content:
+          "Research operations dashboard for player-only football game state reconstruction: pipeline status, evaluation metrics and recent experiments.",
+      },
+      { property: "og:title", content: "Overview — Ball-Free Game State Reconstruction" },
+      {
+        property: "og:description",
+        content: "Pipeline status, evaluation metrics and recent experiments.",
+      },
+    ],
+  }),
+  component: Overview,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const stateColor: Record<string, string> = {
+  ok: "border-primary/50 text-primary",
+  partial: "border-warn/50 text-warn",
+  blocked: "border-destructive/50 text-destructive",
+};
+
+function Overview() {
+  const { frame, selectedPlayer, setSelectedPlayer } = useSession();
+  const players = buildFrame(frame);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+    <>
+      <PageHeader
+        title="Research Operations Overview"
+        description="Reconstruction of football game state from player tracking only — no ball position is used at any stage. All figures below are produced by the mock evaluation backend on Metrica Sample_Game_1."
       />
-    </div>
+
+      <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <Metric label="Possession F1" value="0.741" sub="Inferred possessor vs annotation" tone="primary" />
+        <Metric label="Tactical MAE" value="0.118" sub="Normalised across 8 tactical features" />
+        <Metric label="Event F1" value="0.612" sub="Macro across 5 event classes" />
+        <Metric label="Ranking MRR" value="0.583" sub="Counterfactual option ranking" />
+      </div>
+
+      <Panel title="Processing Pipeline" subtitle="Stage status for the active experiment" className="mb-4">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-4 xl:grid-cols-7">
+          {PIPELINE.map((s) => (
+            <div key={s.id} className="border border-border bg-panel-alt p-2.5">
+              <div className="label-xs">Stage {s.id}</div>
+              <div className="mt-1 text-[12.5px] font-medium">{s.name}</div>
+              <div className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{s.detail}</div>
+              <span
+                className={`mt-2 inline-block border px-1.5 py-px text-[10px] uppercase tracking-[0.06em] ${stateColor[s.state]}`}
+              >
+                {s.state}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      <div className="grid gap-4 xl:grid-cols-[1.6fr_1fr]">
+        <Panel
+          title="Reconstructed Player State"
+          subtitle={`Frame ${frame} · 22 tracked players · ball position not used`}
+        >
+          <Pitch players={players} selectedId={selectedPlayer} onSelect={setSelectedPlayer} />
+          <div className="mt-2">
+            <PitchLegend />
+          </div>
+        </Panel>
+
+        <Panel title="Recent Experiments" subtitle="Last six runs">
+          <table className="w-full text-[11.5px]">
+            <thead>
+              <tr className="border-b border-border text-left">
+                <th className="label-xs py-1.5">Run</th>
+                <th className="label-xs py-1.5 text-right">Poss F1</th>
+                <th className="label-xs py-1.5 text-right">MAE</th>
+                <th className="label-xs py-1.5 text-right">MRR</th>
+                <th className="label-xs py-1.5 text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {EXPERIMENTS.map((e) => (
+                <tr key={e.id} className="border-b border-border/60">
+                  <td className="py-1.5">
+                    <div className="num">{e.id}</div>
+                    <div className="text-[10.5px] text-muted-foreground">{e.name}</div>
+                  </td>
+                  <td className="num py-1.5 text-right">{e.possessionF1 ? e.possessionF1.toFixed(3) : "—"}</td>
+                  <td className="num py-1.5 text-right">{e.tacticalMae ? e.tacticalMae.toFixed(3) : "—"}</td>
+                  <td className="num py-1.5 text-right">{e.mrr ? e.mrr.toFixed(3) : "—"}</td>
+                  <td className="py-1.5 text-right text-[10.5px] uppercase tracking-[0.05em] text-muted-foreground">
+                    {e.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Panel>
+      </div>
+    </>
   );
 }

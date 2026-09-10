@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GameStateRouteImport } from './routes/game-state'
+import { Route as MatchExplorerRouteImport } from './routes/match-explorer'
+import { Route as PossessionRouteImport } from './routes/possession'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GameStateRoute = GameStateRouteImport.update({
+  id: '/game-state',
+  path: '/game-state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatchExplorerRoute = MatchExplorerRouteImport.update({
+  id: '/match-explorer',
+  path: '/match-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PossessionRoute = PossessionRouteImport.update({
+  id: '/possession',
+  path: '/possession',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/game-state': typeof GameStateRoute
+  '/match-explorer': typeof MatchExplorerRoute
+  '/possession': typeof PossessionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/game-state': typeof GameStateRoute
+  '/match-explorer': typeof MatchExplorerRoute
+  '/possession': typeof PossessionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/game-state': typeof GameStateRoute
+  '/match-explorer': typeof MatchExplorerRoute
+  '/possession': typeof PossessionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/game-state' | '/match-explorer' | '/possession'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/game-state' | '/match-explorer' | '/possession'
+  id: '__root__' | '/' | '/game-state' | '/match-explorer' | '/possession'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GameStateRoute: typeof GameStateRoute
+  MatchExplorerRoute: typeof MatchExplorerRoute
+  PossessionRoute: typeof PossessionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/game-state': {
+      id: '/game-state'
+      path: '/game-state'
+      fullPath: '/game-state'
+      preLoaderRoute: typeof GameStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/match-explorer': {
+      id: '/match-explorer'
+      path: '/match-explorer'
+      fullPath: '/match-explorer'
+      preLoaderRoute: typeof MatchExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/possession': {
+      id: '/possession'
+      path: '/possession'
+      fullPath: '/possession'
+      preLoaderRoute: typeof PossessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GameStateRoute: GameStateRoute,
+  MatchExplorerRoute: MatchExplorerRoute,
+  PossessionRoute: PossessionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
