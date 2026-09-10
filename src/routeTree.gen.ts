@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BenchmarkRouteImport } from './routes/benchmark'
 import { Route as CounterfactualRouteImport } from './routes/counterfactual'
+import { Route as ExperimentsRouteImport } from './routes/experiments'
 import { Route as GameStateRouteImport } from './routes/game-state'
 import { Route as MatchExplorerRouteImport } from './routes/match-explorer'
 import { Route as NoiseLabRouteImport } from './routes/noise-lab'
 import { Route as PossessionRouteImport } from './routes/possession'
+import { Route as RecoveryRouteImport } from './routes/recovery'
 import { Route as RobustnessRouteImport } from './routes/robustness'
 import { Route as TacticalRouteImport } from './routes/tactical'
+import { Route as TrackingQualityRouteImport } from './routes/tracking-quality'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +35,11 @@ const BenchmarkRoute = BenchmarkRouteImport.update({
 const CounterfactualRoute = CounterfactualRouteImport.update({
   id: '/counterfactual',
   path: '/counterfactual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperimentsRoute = ExperimentsRouteImport.update({
+  id: '/experiments',
+  path: '/experiments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GameStateRoute = GameStateRouteImport.update({
@@ -54,6 +62,11 @@ const PossessionRoute = PossessionRouteImport.update({
   path: '/possession',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecoveryRoute = RecoveryRouteImport.update({
+  id: '/recovery',
+  path: '/recovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RobustnessRoute = RobustnessRouteImport.update({
   id: '/robustness',
   path: '/robustness',
@@ -64,40 +77,54 @@ const TacticalRoute = TacticalRouteImport.update({
   path: '/tactical',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackingQualityRoute = TrackingQualityRouteImport.update({
+  id: '/tracking-quality',
+  path: '/tracking-quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
+  '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/recovery': typeof RecoveryRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
+  '/tracking-quality': typeof TrackingQualityRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
+  '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/recovery': typeof RecoveryRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
+  '/tracking-quality': typeof TrackingQualityRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
+  '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/recovery': typeof RecoveryRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
+  '/tracking-quality': typeof TrackingQualityRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,46 +132,58 @@ export interface FileRouteTypes {
     | '/'
     | '/benchmark'
     | '/counterfactual'
+    | '/experiments'
     | '/game-state'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
+    | '/recovery'
     | '/robustness'
     | '/tactical'
+    | '/tracking-quality'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/benchmark'
     | '/counterfactual'
+    | '/experiments'
     | '/game-state'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
+    | '/recovery'
     | '/robustness'
     | '/tactical'
+    | '/tracking-quality'
   id:
     | '__root__'
     | '/'
     | '/benchmark'
     | '/counterfactual'
+    | '/experiments'
     | '/game-state'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
+    | '/recovery'
     | '/robustness'
     | '/tactical'
+    | '/tracking-quality'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BenchmarkRoute: typeof BenchmarkRoute
   CounterfactualRoute: typeof CounterfactualRoute
+  ExperimentsRoute: typeof ExperimentsRoute
   GameStateRoute: typeof GameStateRoute
   MatchExplorerRoute: typeof MatchExplorerRoute
   NoiseLabRoute: typeof NoiseLabRoute
   PossessionRoute: typeof PossessionRoute
+  RecoveryRoute: typeof RecoveryRoute
   RobustnessRoute: typeof RobustnessRoute
   TacticalRoute: typeof TacticalRoute
+  TrackingQualityRoute: typeof TrackingQualityRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -168,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/counterfactual'
       fullPath: '/counterfactual'
       preLoaderRoute: typeof CounterfactualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiments': {
+      id: '/experiments'
+      path: '/experiments'
+      fullPath: '/experiments'
+      preLoaderRoute: typeof ExperimentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/game-state': {
@@ -198,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PossessionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recovery': {
+      id: '/recovery'
+      path: '/recovery'
+      fullPath: '/recovery'
+      preLoaderRoute: typeof RecoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/robustness': {
       id: '/robustness'
       path: '/robustness'
@@ -212,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TacticalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tracking-quality': {
+      id: '/tracking-quality'
+      path: '/tracking-quality'
+      fullPath: '/tracking-quality'
+      preLoaderRoute: typeof TrackingQualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -219,12 +279,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BenchmarkRoute: BenchmarkRoute,
   CounterfactualRoute: CounterfactualRoute,
+  ExperimentsRoute: ExperimentsRoute,
   GameStateRoute: GameStateRoute,
   MatchExplorerRoute: MatchExplorerRoute,
   NoiseLabRoute: NoiseLabRoute,
   PossessionRoute: PossessionRoute,
+  RecoveryRoute: RecoveryRoute,
   RobustnessRoute: RobustnessRoute,
   TacticalRoute: TacticalRoute,
+  TrackingQualityRoute: TrackingQualityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
