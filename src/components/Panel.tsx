@@ -9,12 +9,12 @@ export function Panel({
   className,
   bodyClassName,
 }: {
-  title?: string;
-  subtitle?: string;
-  actions?: ReactNode;
+  title?: string | undefined;
+  subtitle?: string | undefined;
+  actions?: ReactNode | undefined;
   children: ReactNode;
-  className?: string;
-  bodyClassName?: string;
+  className?: string | undefined;
+  bodyClassName?: string | undefined;
 }) {
   return (
     <section className={cn("border border-border bg-panel", className)}>
@@ -40,8 +40,8 @@ export function Metric({
 }: {
   label: string;
   value: string;
-  sub?: string;
-  tone?: "primary" | "warn" | "muted";
+  sub?: string | undefined;
+  tone?: "primary" | "warn" | "muted" | undefined;
 }) {
   return (
     <div className="border border-border bg-panel px-3 py-2.5">

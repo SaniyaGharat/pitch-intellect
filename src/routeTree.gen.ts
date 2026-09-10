@@ -10,15 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BenchmarkRouteImport } from './routes/benchmark'
 import { Route as CounterfactualRouteImport } from './routes/counterfactual'
 import { Route as GameStateRouteImport } from './routes/game-state'
 import { Route as MatchExplorerRouteImport } from './routes/match-explorer'
+import { Route as NoiseLabRouteImport } from './routes/noise-lab'
 import { Route as PossessionRouteImport } from './routes/possession'
+import { Route as RobustnessRouteImport } from './routes/robustness'
 import { Route as TacticalRouteImport } from './routes/tactical'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BenchmarkRoute = BenchmarkRouteImport.update({
+  id: '/benchmark',
+  path: '/benchmark',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CounterfactualRoute = CounterfactualRouteImport.update({
@@ -36,9 +44,19 @@ const MatchExplorerRoute = MatchExplorerRouteImport.update({
   path: '/match-explorer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NoiseLabRoute = NoiseLabRouteImport.update({
+  id: '/noise-lab',
+  path: '/noise-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PossessionRoute = PossessionRouteImport.update({
   id: '/possession',
   path: '/possession',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobustnessRoute = RobustnessRouteImport.update({
+  id: '/robustness',
+  path: '/robustness',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TacticalRoute = TacticalRouteImport.update({
@@ -49,62 +67,83 @@ const TacticalRoute = TacticalRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
+  '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
+  '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/benchmark': typeof BenchmarkRoute
   '/counterfactual': typeof CounterfactualRoute
   '/game-state': typeof GameStateRoute
   '/match-explorer': typeof MatchExplorerRoute
+  '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
+  '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/benchmark'
     | '/counterfactual'
     | '/game-state'
     | '/match-explorer'
+    | '/noise-lab'
     | '/possession'
+    | '/robustness'
     | '/tactical'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/benchmark'
     | '/counterfactual'
     | '/game-state'
     | '/match-explorer'
+    | '/noise-lab'
     | '/possession'
+    | '/robustness'
     | '/tactical'
   id:
     | '__root__'
     | '/'
+    | '/benchmark'
     | '/counterfactual'
     | '/game-state'
     | '/match-explorer'
+    | '/noise-lab'
     | '/possession'
+    | '/robustness'
     | '/tactical'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BenchmarkRoute: typeof BenchmarkRoute
   CounterfactualRoute: typeof CounterfactualRoute
   GameStateRoute: typeof GameStateRoute
   MatchExplorerRoute: typeof MatchExplorerRoute
+  NoiseLabRoute: typeof NoiseLabRoute
   PossessionRoute: typeof PossessionRoute
+  RobustnessRoute: typeof RobustnessRoute
   TacticalRoute: typeof TacticalRoute
 }
 
@@ -115,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/benchmark': {
+      id: '/benchmark'
+      path: '/benchmark'
+      fullPath: '/benchmark'
+      preLoaderRoute: typeof BenchmarkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/counterfactual': {
@@ -138,11 +184,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatchExplorerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/noise-lab': {
+      id: '/noise-lab'
+      path: '/noise-lab'
+      fullPath: '/noise-lab'
+      preLoaderRoute: typeof NoiseLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/possession': {
       id: '/possession'
       path: '/possession'
       fullPath: '/possession'
       preLoaderRoute: typeof PossessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robustness': {
+      id: '/robustness'
+      path: '/robustness'
+      fullPath: '/robustness'
+      preLoaderRoute: typeof RobustnessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tactical': {
@@ -157,10 +217,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BenchmarkRoute: BenchmarkRoute,
   CounterfactualRoute: CounterfactualRoute,
   GameStateRoute: GameStateRoute,
   MatchExplorerRoute: MatchExplorerRoute,
+  NoiseLabRoute: NoiseLabRoute,
   PossessionRoute: PossessionRoute,
+  RobustnessRoute: RobustnessRoute,
   TacticalRoute: TacticalRoute,
 }
 export const routeTree = rootRouteImport
