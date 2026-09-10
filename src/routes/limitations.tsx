@@ -76,7 +76,7 @@ function Limitations() {
       </div>
 
       <div className="mt-4 border border-warn/40 bg-warn/5 px-3 py-2.5 text-[11.5px] leading-relaxed text-warn">
-        <span className="mr-1.5 font-semibold uppercase tracking-[0.06em">Scope</span>
+        <span className="mr-1.5 font-semibold uppercase tracking-[0.06em]">Scope</span>
         This is a v0.8 research build backed by mock evaluation data. It is not a match-analysis product and
         must not be used to assess player decision-making.
       </div>

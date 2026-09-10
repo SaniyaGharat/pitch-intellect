@@ -11,13 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BenchmarkRouteImport } from './routes/benchmark'
+import { Route as BroadcastRouteImport } from './routes/broadcast'
 import { Route as CounterfactualRouteImport } from './routes/counterfactual'
 import { Route as ExperimentsRouteImport } from './routes/experiments'
 import { Route as GameStateRouteImport } from './routes/game-state'
+import { Route as LimitationsRouteImport } from './routes/limitations'
 import { Route as MatchExplorerRouteImport } from './routes/match-explorer'
 import { Route as NoiseLabRouteImport } from './routes/noise-lab'
 import { Route as PossessionRouteImport } from './routes/possession'
 import { Route as RecoveryRouteImport } from './routes/recovery'
+import { Route as ResultsRouteImport } from './routes/results'
 import { Route as RobustnessRouteImport } from './routes/robustness'
 import { Route as TacticalRouteImport } from './routes/tactical'
 import { Route as TrackingQualityRouteImport } from './routes/tracking-quality'
@@ -30,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const BenchmarkRoute = BenchmarkRouteImport.update({
   id: '/benchmark',
   path: '/benchmark',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BroadcastRoute = BroadcastRouteImport.update({
+  id: '/broadcast',
+  path: '/broadcast',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CounterfactualRoute = CounterfactualRouteImport.update({
@@ -45,6 +53,11 @@ const ExperimentsRoute = ExperimentsRouteImport.update({
 const GameStateRoute = GameStateRouteImport.update({
   id: '/game-state',
   path: '/game-state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LimitationsRoute = LimitationsRouteImport.update({
+  id: '/limitations',
+  path: '/limitations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatchExplorerRoute = MatchExplorerRouteImport.update({
@@ -67,6 +80,11 @@ const RecoveryRoute = RecoveryRouteImport.update({
   path: '/recovery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultsRoute = ResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RobustnessRoute = RobustnessRouteImport.update({
   id: '/robustness',
   path: '/robustness',
@@ -86,13 +104,16 @@ const TrackingQualityRoute = TrackingQualityRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/broadcast': typeof BroadcastRoute
   '/counterfactual': typeof CounterfactualRoute
   '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
+  '/limitations': typeof LimitationsRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
   '/recovery': typeof RecoveryRoute
+  '/results': typeof ResultsRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
   '/tracking-quality': typeof TrackingQualityRoute
@@ -100,13 +121,16 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/broadcast': typeof BroadcastRoute
   '/counterfactual': typeof CounterfactualRoute
   '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
+  '/limitations': typeof LimitationsRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
   '/recovery': typeof RecoveryRoute
+  '/results': typeof ResultsRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
   '/tracking-quality': typeof TrackingQualityRoute
@@ -115,13 +139,16 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/broadcast': typeof BroadcastRoute
   '/counterfactual': typeof CounterfactualRoute
   '/experiments': typeof ExperimentsRoute
   '/game-state': typeof GameStateRoute
+  '/limitations': typeof LimitationsRoute
   '/match-explorer': typeof MatchExplorerRoute
   '/noise-lab': typeof NoiseLabRoute
   '/possession': typeof PossessionRoute
   '/recovery': typeof RecoveryRoute
+  '/results': typeof ResultsRoute
   '/robustness': typeof RobustnessRoute
   '/tactical': typeof TacticalRoute
   '/tracking-quality': typeof TrackingQualityRoute
@@ -131,13 +158,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/benchmark'
+    | '/broadcast'
     | '/counterfactual'
     | '/experiments'
     | '/game-state'
+    | '/limitations'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
     | '/recovery'
+    | '/results'
     | '/robustness'
     | '/tactical'
     | '/tracking-quality'
@@ -145,13 +175,16 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/benchmark'
+    | '/broadcast'
     | '/counterfactual'
     | '/experiments'
     | '/game-state'
+    | '/limitations'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
     | '/recovery'
+    | '/results'
     | '/robustness'
     | '/tactical'
     | '/tracking-quality'
@@ -159,13 +192,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/benchmark'
+    | '/broadcast'
     | '/counterfactual'
     | '/experiments'
     | '/game-state'
+    | '/limitations'
     | '/match-explorer'
     | '/noise-lab'
     | '/possession'
     | '/recovery'
+    | '/results'
     | '/robustness'
     | '/tactical'
     | '/tracking-quality'
@@ -174,13 +210,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BenchmarkRoute: typeof BenchmarkRoute
+  BroadcastRoute: typeof BroadcastRoute
   CounterfactualRoute: typeof CounterfactualRoute
   ExperimentsRoute: typeof ExperimentsRoute
   GameStateRoute: typeof GameStateRoute
+  LimitationsRoute: typeof LimitationsRoute
   MatchExplorerRoute: typeof MatchExplorerRoute
   NoiseLabRoute: typeof NoiseLabRoute
   PossessionRoute: typeof PossessionRoute
   RecoveryRoute: typeof RecoveryRoute
+  ResultsRoute: typeof ResultsRoute
   RobustnessRoute: typeof RobustnessRoute
   TacticalRoute: typeof TacticalRoute
   TrackingQualityRoute: typeof TrackingQualityRoute
@@ -202,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BenchmarkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/broadcast': {
+      id: '/broadcast'
+      path: '/broadcast'
+      fullPath: '/broadcast'
+      preLoaderRoute: typeof BroadcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/counterfactual': {
       id: '/counterfactual'
       path: '/counterfactual'
@@ -221,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/game-state'
       fullPath: '/game-state'
       preLoaderRoute: typeof GameStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/limitations': {
+      id: '/limitations'
+      path: '/limitations'
+      fullPath: '/limitations'
+      preLoaderRoute: typeof LimitationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/match-explorer': {
@@ -251,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/results': {
+      id: '/results'
+      path: '/results'
+      fullPath: '/results'
+      preLoaderRoute: typeof ResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/robustness': {
       id: '/robustness'
       path: '/robustness'
@@ -278,13 +338,16 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BenchmarkRoute: BenchmarkRoute,
+  BroadcastRoute: BroadcastRoute,
   CounterfactualRoute: CounterfactualRoute,
   ExperimentsRoute: ExperimentsRoute,
   GameStateRoute: GameStateRoute,
+  LimitationsRoute: LimitationsRoute,
   MatchExplorerRoute: MatchExplorerRoute,
   NoiseLabRoute: NoiseLabRoute,
   PossessionRoute: PossessionRoute,
   RecoveryRoute: RecoveryRoute,
+  ResultsRoute: ResultsRoute,
   RobustnessRoute: RobustnessRoute,
   TacticalRoute: TacticalRoute,
   TrackingQualityRoute: TrackingQualityRoute,
